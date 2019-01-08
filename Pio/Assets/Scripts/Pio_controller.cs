@@ -34,11 +34,21 @@ public class Pio_controller : MonoBehaviour
             rb.AddForce(transform.forward * m_acceleration * -1 * Time.deltaTime * 100);
         }
 
-        if (Input.GetKey("up"))
+        if (Input.GetKey("up") && !IsJumping())
         {
             rb.AddForce(transform.up * m_jump * Time.deltaTime * 100);
         }
 
     }
 
+    private bool IsJumping()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.3f))
+        {
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+            return false;
+        }
+        return true;
+    }
 }
