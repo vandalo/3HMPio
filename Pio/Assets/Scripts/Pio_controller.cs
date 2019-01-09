@@ -24,12 +24,12 @@ public class Pio_controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey("right") && rb.velocity.x < m_velocityLimit)
+        if (Input.GetKey("right") && Mathf.Abs(rb.velocity.x) < m_velocityLimit)
         {
             rb.AddForce(transform.forward * m_acceleration * Time.deltaTime * 100);
         }
 
-        if (Input.GetKey("left") && rb.velocity.x > -m_velocityLimit)
+        if (Input.GetKey("left") && Mathf.Abs(rb.velocity.x) < m_velocityLimit)
         {
             rb.AddForce(transform.forward * m_acceleration * -1 * Time.deltaTime * 100);
         }
