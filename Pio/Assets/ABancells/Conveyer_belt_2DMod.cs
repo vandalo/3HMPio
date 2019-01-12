@@ -12,18 +12,19 @@ public class Conveyer_belt_2DMod : MonoBehaviour
         m_goesLeft = true;
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnCollisionStay2D(Collision2D collision)
     {        
-        float conveyerVelocity = m_speed;
         Rigidbody2D rigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        print("entra");
         if (Mathf.Abs(rigidbody.velocity.x) < m_speed)
         {
+
             int direction = -1;
             if (m_goesLeft)
             {
                 direction = 1;
             }
-            rigidbody.velocity += conveyerVelocity * (new Vector2(direction, 0));
+            rigidbody.velocity += m_speed * (new Vector2(direction, 0.0f));
         }        
     }
 }

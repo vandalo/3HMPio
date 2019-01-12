@@ -46,12 +46,18 @@ public class Pio_controller_2Dmod : MonoBehaviour
 
     private bool IsJumping()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.3f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
 
         if (hit.collider != null)
         {
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            return false;
+            //Debug.DrawRay2D(transform.position, transform.TransformDirection(Vector2.down) * hit.distance, Color.yellow);
+            
+            float distance = Mathf.Abs(hit.point.y - transform.position.y);
+            print("Distance" + distance);
+            if (distance < 1.5f)
+            {
+                return false;
+            }
         }
         return true;
     }
