@@ -26,6 +26,7 @@ public class Basic_platform : MonoBehaviour
     public float radi;
 
     private float timerCounter;
+    List<GameObject> collisionItems = new List<GameObject>();
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class Basic_platform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 oldPosition = transform.position;
         if (moveX)
         {
             transform.position = new Vector3(transform.position.x + (Time.deltaTime * speedX * directionX), transform.position.y, transform.position.z);
@@ -68,5 +70,20 @@ public class Basic_platform : MonoBehaviour
 
             transform.position = new Vector3(initPosition.x + x, initPosition.y + y, initPosition.z);
         }
+
+        foreach (GameObject collisionItem in collisionItems)
+        {
+            float posX = collisionItem.transform.position.x + (transform.position.x - oldPosition.x);
+            float posY = collisionItem.transform.position.y + (transform.position.y - oldPosition.y);
+            float posZ = collisionItem.transform.position.z + (transform.position.z - oldPosition.z);
+            collisionItem.transform.position = new Vector3(posX, posY, posZ);
+        }
+        collisionItems.Clear();
     }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        collisionItems.Add(collision.gameObject);
+    }
+
 }
